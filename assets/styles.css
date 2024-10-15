@@ -1,0 +1,740 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
+
+/* Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+/* Navbar */
+nav {
+    background-color: rgba(255, 255, 255, 0.8); /* Warna putih dengan transparansi 80% */
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for a floating effect */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Added padding */
+}
+
+.logo, .logo-right {
+    height: 80px;
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logo:hover, .logo-right:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; /* Agar navbar mengambil ruang di tengah */
+}
+
+.navbar li {
+    margin-left: 25px;
+}
+
+.navbar li a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-family: "Ubuntu Condensed", sans-serif;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar li a:hover {
+    background-color: #00509d; /* Subtle background on hover */
+    border-radius: 5px;
+    color: #ffdd57; /* Different color on hover */
+}
+
+.logo-right {
+    height: 80px;
+    margin-left: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 60px; /* Adjusted position for better spacing */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.dropdown-content li a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+button.prev, button.next {
+    background-color: #0062cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.prev:hover, button.next:hover {
+    background-color: #004c99;
+}
+
+  
+  /* Home Section */
+  #home {
+    background-image: url('img/2020-08-21.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+  
+  #home::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Overlay effect */
+    z-index: 0;
+  }
+  
+  .home-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+  
+  .home-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-family: "Playfair Display", serif; /* Menambahkan font */
+  }
+  
+  .home-content p {
+    font-size: 24px;
+    margin-bottom: 40px;
+    
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center; /* Pusatkan tombol secara horizontal */
+    flex-wrap: wrap; /* Membuat tombol berpindah ke baris baru jika perlu */
+    gap: 20px; /* Jarak antara tombol */
+    margin: 20px 0; /* Jarak atas dan bawah */
+}
+.button {
+    background-color: #f2f2f2; /* Warna latar belakang tombol */
+    border: 1px solid #ccc; /* Border halus */
+    border-radius: 10px; /* Sudut yang membulat */
+    padding: 15px; /* Ruang di dalam tombol */
+    text-align: center; /* Pusatkan teks */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi untuk hover */
+    cursor: pointer; /* Tampilkan kursor tangan saat hover */
+    width: 200px; /* Lebar tetap untuk tombol */
+}
+  
+.button img {
+    width: 50px; /* Ukuran gambar */
+    height: auto; /* Menjaga rasio aspek gambar */
+    margin-bottom: 10px; /* Jarak antara gambar dan teks */
+}
+  
+  .button span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    transform: translateY(-5px); /* Efek angkat saat hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Bayangan saat hover */
+}
+
+.button span {
+    font-size: 16px; /* Ukuran teks */
+    font-weight: bold; /* Tebalkan teks */
+    color: #333; /* Warna teks */
+    font-family: "Ubuntu Condensed", sans-serif;
+}
+  
+  /* Jurusan Section */
+#jurusan {
+  position: relative; /* Membuat posisi relatif untuk elemen induk */
+  padding: 50px 0;
+  text-align: center;
+  background-color: #f9f9f9;
+  background-image: url('img/jurusan2.webp'); /* Gambar background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#jurusan::before {
+  content: ""; /* Membuat elemen kosong */
+  position: absolute; /* Posisi absolut untuk menutupi elemen */
+  top: 0; /* Menempatkan di bagian atas */
+  left: 0; /* Menempatkan di bagian kiri */
+  width: 100%; /* Mengisi lebar elemen induk */
+  height: 100%; /* Mengisi tinggi elemen induk */
+  background-color: rgba(0, 0, 0, 0.5); /* Warna gelap dengan transparansi */
+  z-index: 1; /* Menempatkan di belakang teks */
+}
+
+#jurusan h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  font-family: "Playfair Display", serif;
+  position: relative; /* Agar teks tetap di atas lapisan gelap */
+  z-index: 2; /* Menempatkan di atas lapisan gelap */
+}
+
+.jurusan-slider {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Menempatkan slider di atas lapisan gelap */
+}
+
+.jurusan-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.jurusan-wrapper img {
+  width: 120px;
+  height: auto;
+  margin: 0 20px;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.jurusan-wrapper img:hover {
+  transform: scale(1.1);
+}
+
+
+button.prev, button.next {
+  background-color: #00509d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+button.prev {
+  left: 0;
+}
+
+button.next {
+  right: 0;
+}
+
+/* Section Daftar Siswa */
+#daftar-siswa {
+    padding: 80px 0;
+    background-image: url('img/komputer.png'); /* Ganti dengan path gambar background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    position: relative;
+}
+
+#daftar-siswa::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Tambahkan overlay gelap */
+    z-index: 1;
+}
+
+.container-daftar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Gaya Judul dan Teks */
+.daftar-text h2 {
+    position: relative;
+    color: #fff; /* Warna teks tetap putih */
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+
+.daftar-text h2::before {
+    content: '';
+    position: absolute;
+    left: -30px; /* Jarak dari teks ke garis */
+    top: 0;
+    width: 5px; /* Lebar garis */
+    height: 100%;
+    background-color: #ffd700; /* Warna garis emas */
+}
+
+.daftar-text h3 {
+    font-size: 28px;
+    color: #ffd700; /* Warna emas */
+    margin-bottom: 25px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.daftar-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #ccc; /* Warna abu muda */
+    text-align: left;
+    max-width: 600px;
+}
+
+/* Tampilan Gambar */
+.daftar-images {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.image-card {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.1); /* Sedikit transparansi */
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 15px;
+}
+
+.image-card:hover {
+    transform: translateY(-10px); /* Efek mengangkat saat hover */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.image-card:hover img {
+    transform: scale(1.1); /* Zoom in saat hover */
+}
+
+/* Media Query untuk Responsif */
+@media (max-width: 768px) {
+    .container-daftar {
+        grid-template-columns: 1fr;
+    }
+
+    .daftar-images {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .daftar-text {
+        text-align: center;
+    }
+
+    .daftar-text p {
+        text-align: center;
+    }
+}
+
+
+
+/* Section Penghargaan */
+#penghargaan {
+    background-image: url('img/gradasi.png');
+    background-size: cover;
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
+  }
+  
+  #penghargaan h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+    position: relative;
+  }
+  
+  .slider-container {
+    position: relative;
+    max-width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slider-wrapper {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  .slide {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .slide img {
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  
+  .slide img:hover {
+    transform: scale(1.05); /* Zoom-in on hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .prev:hover, .next:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .dots {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dot:hover, .dot.active {
+    background-color: #717171;
+  }
+  
+
+ /* Section Prestasi */
+#prestasi {
+  padding: 50px 0;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+#prestasi h2 {
+  font-size: 36px;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 40px;
+}
+
+.prestasi-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Agar responsif, item akan turun ke bawah di layar kecil */
+}
+
+.prestasi-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px; /* Lebar tiap card */
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prestasi-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.prestasi-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.prestasi-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.prestasi-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+
+/* Section Kontak */
+#kontak {
+  padding: 50px 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.contact-info {
+  width: 45%;
+}
+
+.contact-info h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.contact-info p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #777;
+}
+
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.contact-info ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.contact-info ul li i {
+  font-size: 24px;
+  color: #f47621;
+  margin-right: 15px;
+}
+
+.contact-info ul li span {
+  font-size: 16px;
+  color: #555;
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+}
+
+.social-media p {
+  margin-right: 15px;
+}
+
+.social-media a {
+  color: #f47621;
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.contact-form {
+  width: 45%;
+}
+
+.contact-form h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.contact-form form input, .contact-form form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.contact-form form button {
+  background-color: #f47621;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.contact-form form button:hover {
+  background-color: #e66410;
+}
+
+.map iframe {
+  margin-top: 30px;
+  width: 100%;
+  height: 400px;
+  border: none;
+}
+
+
+/* Footer Styles */
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 50px;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.footer-left {
+  max-width: 60%;
+}
+
+.footer-left h2 {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.contact-info strong {
+  font-size: 18px;
+}
+
+.social-links {
+  margin-top: 20px;
+}
+
+.social-links a {
+  color: #fff;
+  margin-right: 15px;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.social-links i {
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover i {
+  color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .footer-left {
+      margin-bottom: 30px;
+  }
+
+  .footer-right {
+      align-items: center;
+  }
+}
