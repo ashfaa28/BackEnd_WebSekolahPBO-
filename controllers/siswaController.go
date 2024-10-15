@@ -40,7 +40,8 @@ func SiswaControllerCreate(c *fiber.Ctx) error {
 		Email:          siswa.Email,
 		Usia:           siswa.Usia,
 		Alamat:         siswa.Alamat,
-		NamaOrangTua:   siswa.NamaOrangTua,
+		NamaAyah:       siswa.NamaAyah,
+		NamaIbu:        siswa.NamaIbu,
 		NoTelpOrangTua: siswa.NoTelpOrangTua,
 		AsalSekolah:    siswa.AsalSekolah,
 	}
