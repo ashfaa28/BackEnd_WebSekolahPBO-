@@ -9,4 +9,6 @@ import (
 func Route(c *fiber.App) {
 	c.Get("/api/showAll", controllers.SiswaControllerShow)
 	c.Post("/api/create", controllers.SiswaControllerCreate)
+	c.Get("/api/showAllAccount", controllers.AkunControllerShow)
+	c.Post("/api/createAccount", controllers.AkunControllerCreate)
 }

@@ -7,9 +7,11 @@ import (
 )
 
 func StartMigration() {
-	err := database.DB.AutoMigrate(&entity.Siswa{})
+
+	err := database.DB.AutoMigrate(&entity.Siswa{}, &entity.Akun{})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println("Database Migration Completed!")
 }
