@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Fungsi untuk menampilkan semua data Berita
+// Menampilkan semua data Berita
 func BeritaControllerShow(c *fiber.Ctx) error {
 	var beritas []entity.Berita
 	err := database.DB.Find(&beritas).Error
@@ -23,9 +23,8 @@ func BeritaControllerShow(c *fiber.Ctx) error {
 	return c.JSON(beritas)
 }
 
-// Fungsi untuk membuat Berita baru dengan gambar dan isi berita
+// Membuat Berita baru dengan gambar
 func BeritaControllerCreate(c *fiber.Ctx) error {
-	// Mengambil isi berita dari form-data
 	isiBerita := c.FormValue("isi_berita")
 	if isiBerita == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -33,7 +32,6 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Validasi data input
 	validation := validator.New()
 	reqData := req.BeritaReq{IsiBerita: isiBerita}
 	if err := validation.Struct(&reqData); err != nil {
@@ -43,7 +41,7 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Mengambil file gambar dari form-data
+	// Menyimpan file gambar ke folder uploads/berita
 	file, err := c.FormFile("gambar")
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -51,8 +49,7 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Menyimpan file gambar ke direktori server
-	filePath := filepath.Join("uploads", file.Filename)
+	filePath := filepath.Join("uploads", "berita", file.Filename)
 	if err := c.SaveFile(file, filePath); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Gagal menyimpan gambar",
@@ -78,7 +75,7 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 	})
 }
 
-// Fungsi untuk memperbarui Berita berdasarkan ID
+// Memperbarui Berita berdasarkan ID
 func BeritaControllerUpdate(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var berita entity.Berita
@@ -96,7 +93,6 @@ func BeritaControllerUpdate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Validasi data input
 	validation := validator.New()
 	reqData := req.BeritaReq{IsiBerita: isiBerita}
 	if err := validation.Struct(&reqData); err != nil {
@@ -106,10 +102,9 @@ func BeritaControllerUpdate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Memperbarui isi berita dan gambar jika ada file baru yang diupload
 	file, err := c.FormFile("gambar")
 	if err == nil {
-		filePath := filepath.Join("uploads", file.Filename)
+		filePath := filepath.Join("uploads", "berita", file.Filename)
 		if err := c.SaveFile(file, filePath); err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"message": "Gagal menyimpan gambar",
@@ -117,7 +112,6 @@ func BeritaControllerUpdate(c *fiber.Ctx) error {
 			})
 		}
 
-		// Hapus file gambar lama jika berbeda
 		if berita.Gambar != "" && berita.Gambar != filePath {
 			os.Remove(berita.Gambar)
 		}
@@ -138,7 +132,7 @@ func BeritaControllerUpdate(c *fiber.Ctx) error {
 	})
 }
 
-// Fungsi untuk menghapus Berita berdasarkan ID
+// Menghapus Berita berdasarkan ID
 func BeritaControllerDelete(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var berita entity.Berita
@@ -149,7 +143,6 @@ func BeritaControllerDelete(c *fiber.Ctx) error {
 		})
 	}
 
-	// Menghapus file gambar dari server
 	if berita.Gambar != "" {
 		os.Remove(berita.Gambar)
 	}

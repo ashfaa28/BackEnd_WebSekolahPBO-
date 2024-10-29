@@ -6,8 +6,14 @@ import (
 )
 
 // RenderHome menampilkan halaman beranda (index.html)
-func RenderHome(c *fiber.Ctx) error {
+func FormBerita(c *fiber.Ctx) error {
 	return c.Render("formBerita", fiber.Map{
 		"Title": "Form Berita",
+	})
+}
+
+func FormPrestasi(c *fiber.Ctx) error {
+	return c.Render("formPrestasi", fiber.Map{
+		"Title": "Form Prestasi",
 	})
 }
