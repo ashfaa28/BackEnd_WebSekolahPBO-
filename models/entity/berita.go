@@ -1,4 +1,3 @@
-// File: models/entity/berita.go
 package entity
 
 import "gorm.io/gorm"

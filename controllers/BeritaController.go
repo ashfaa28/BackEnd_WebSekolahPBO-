@@ -1,4 +1,3 @@
-// File: controllers/berita_controller.go
 package controllers
 
 import (
@@ -13,7 +12,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Menampilkan semua data Berita
 func BeritaControllerShow(c *fiber.Ctx) error {
 	var beritas []entity.Berita
 	err := database.DB.Find(&beritas).Error
@@ -23,7 +21,6 @@ func BeritaControllerShow(c *fiber.Ctx) error {
 	return c.JSON(beritas)
 }
 
-// Membuat Berita baru dengan gambar
 func BeritaControllerCreate(c *fiber.Ctx) error {
 	isiBerita := c.FormValue("isi_berita")
 	if isiBerita == "" {
@@ -41,7 +38,6 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Menyimpan file gambar ke folder uploads/berita
 	file, err := c.FormFile("gambar")
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -57,7 +53,6 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Membuat entitas Berita baru
 	beritaBaru := entity.Berita{
 		Gambar:    filePath,
 		IsiBerita: isiBerita,
@@ -75,7 +70,6 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 	})
 }
 
-// Memperbarui Berita berdasarkan ID
 func BeritaControllerUpdate(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var berita entity.Berita
@@ -132,7 +126,6 @@ func BeritaControllerUpdate(c *fiber.Ctx) error {
 	})
 }
 
-// Menghapus Berita berdasarkan ID
 func BeritaControllerDelete(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var berita entity.Berita

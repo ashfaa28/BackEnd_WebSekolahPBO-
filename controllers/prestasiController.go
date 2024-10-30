@@ -12,7 +12,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Fungsi untuk menampilkan semua data Prestasi
 func PrestasiControllerShow(c *fiber.Ctx) error {
 	var prestasis []entity.Prestasi
 	if err := database.DB.Find(&prestasis).Error; err != nil {
@@ -24,7 +23,6 @@ func PrestasiControllerShow(c *fiber.Ctx) error {
 	return c.JSON(prestasis)
 }
 
-// Fungsi untuk membuat prestasi baru
 func PrestasiControllerCreate(c *fiber.Ctx) error {
 	file, err := c.FormFile("gambar")
 	if err != nil {
@@ -34,7 +32,6 @@ func PrestasiControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
-	// Validasi input
 	validation := validator.New()
 	reqData := req.PrestasiReq{Gambar: file.Filename}
 	if err := validation.Struct(&reqData); err != nil {
@@ -68,7 +65,6 @@ func PrestasiControllerCreate(c *fiber.Ctx) error {
 	})
 }
 
-// Fungsi untuk memperbarui data prestasi
 func PrestasiControllerUpdate(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var prestasi entity.Prestasi
@@ -81,7 +77,6 @@ func PrestasiControllerUpdate(c *fiber.Ctx) error {
 
 	file, err := c.FormFile("gambar")
 	if err == nil {
-		// Validasi input
 		validation := validator.New()
 		reqData := req.PrestasiReq{Gambar: file.Filename}
 		if err := validation.Struct(&reqData); err != nil {
@@ -99,7 +94,7 @@ func PrestasiControllerUpdate(c *fiber.Ctx) error {
 			})
 		}
 
-		// Hapus file gambar lama jika berbeda
+		// Hapus kalo ada gambar yang samaan
 		if prestasi.Gambar != "" && prestasi.Gambar != filePath {
 			os.Remove(prestasi.Gambar)
 		}
