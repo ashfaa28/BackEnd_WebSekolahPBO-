@@ -36,7 +36,7 @@ func SiswaControllerCreate(c *fiber.Ctx) error {
 	siswaBaru := entity.Siswa{
 		Nama:           siswa.Nama,
 		NISN:           siswa.NISN,
-		NoTelp:         siswa.NoTelp,
+		JenisKelamin:   siswa.JenisKelamin,
 		Email:          siswa.Email,
 		Usia:           siswa.Usia,
 		Alamat:         siswa.Alamat,
@@ -82,7 +82,7 @@ func SiswaControllerUpdate(c *fiber.Ctx) error {
 
 	siswa.Nama = reqData.Nama
 	siswa.NISN = reqData.NISN
-	siswa.NoTelp = reqData.NoTelp
+	siswa.JenisKelamin = reqData.JenisKelamin
 	siswa.Email = reqData.Email
 	siswa.Usia = reqData.Usia
 	siswa.Alamat = reqData.Alamat

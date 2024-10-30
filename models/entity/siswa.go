@@ -10,7 +10,7 @@ type Siswa struct {
 	ID             uint           `json:"id" gorm:"primaryKey"`
 	Nama           string         `json:"nama"`
 	NISN           string         `json:"nisn" gorm:"unique"`
-	NoTelp         string         `json:"no_telp"`
+	JenisKelamin   string         `json:"jenkel"`
 	Email          string         `json:"email"`
 	Usia           string         `json:"usia"`
 	Alamat         string         `json:"alamat"`
