@@ -13,3 +13,11 @@ func StaticHandler(c *fiber.Ctx) error {
 	// Kirim file ke client
 	return c.SendFile(filePath, true)
 }
+
+func PkgHandler(c *fiber.Ctx) error {
+	path := c.Params("*")
+	filePath := filepath.Join("pkg", path)
+
+	// Kirim file ke client
+	return c.SendFile(filePath, true)
+}

@@ -44,6 +44,7 @@ func SiswaControllerCreate(c *fiber.Ctx) error {
 		NamaIbu:        siswa.NamaIbu,
 		NoTelpOrangTua: siswa.NoTelpOrangTua,
 		AsalSekolah:    siswa.AsalSekolah,
+		Jurusan:        siswa.Jurusan,
 	}
 
 	if err := database.DB.Create(&siswaBaru).Error; err != nil {
@@ -90,6 +91,7 @@ func SiswaControllerUpdate(c *fiber.Ctx) error {
 	siswa.NamaIbu = reqData.NamaIbu
 	siswa.NoTelpOrangTua = reqData.NoTelpOrangTua
 	siswa.AsalSekolah = reqData.AsalSekolah
+	siswa.Jurusan = reqData.Jurusan
 
 	if err := database.DB.Save(&siswa).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

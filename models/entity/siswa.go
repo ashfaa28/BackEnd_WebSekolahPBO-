@@ -18,6 +18,7 @@ type Siswa struct {
 	NamaIbu        string         `json:"nama_ibu"`
 	NoTelpOrangTua string         `json:"no_telp_orang_tua"`
 	AsalSekolah    string         `json:"asal_sekolah"`
+	Jurusan        string         `json:"jurusan"`
 	CreatedAt      time.Time      `json:"created_at"`
 	UpdatedAt      time.Time      `json:"updated_at"`
 	DeletedAt      gorm.DeletedAt `json:"deleted_at" gorm:"index"`
