@@ -93,12 +93,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-6 mt-4 mb-4">
+        <div class="col-lg-12 col-md-6 mt-4 mb-4">
           <div class="card-db col-12 col-lg-8 mx-auto">
             <div class="card" style="width: 100%; height: 500px;">
               <div class="card-body">
                 <h6 class="mb-0 ">Asal Sekolah SMP</h6>
-                <p class="text-sm ">Data siswa yang mendaftar dari tanggal -- -- </p>
+                <p class="text-sm ">Data siswa yang mendaftar dari tanggal {{.LatestDate}} </p>
                 <div class="pe-2">
                   <div class="chart">
                     <canvas id="chart-bars" class="chart-canvas" height="250"></canvas>
@@ -125,23 +125,28 @@
   <script src="/static/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/static/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="/static/js/plugins/chartjs.min.js"></script>
-  <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+  
+  
 
+
+
+<script>
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+    
     new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["SMP 1", "SMP 2", "SMP 3", "SMP 4", "SMP 5", "SMP 6", "SMP 7"],
+        labels: {{.Schools}},
         datasets: [{
-          label: "Views",
+          label: "Jumlah Siswa",
           tension: 1,
           borderWidth: 1,
           borderRadius: 6,
           borderSkipped: false,
           backgroundColor: "#43A047",
-          data: [100, 90, 12, 1, 204, 55, 41],
+          data: {{.Counts}},
           barThickness: 'flex'
-        }, ],
+        }],
       },
       options: {
         responsive: true,
@@ -200,165 +205,7 @@
     });
 
 
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
 
-    new Chart(ctx2, {
-      type: "line",
-      data: {
-        labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-        datasets: [{
-          label: "Sales",
-          tension: 0,
-          borderWidth: 2,
-          pointRadius: 3,
-          pointBackgroundColor: "#43A047",
-          pointBorderColor: "transparent",
-          borderColor: "#43A047",
-          backgroundColor: "transparent",
-          fill: true,
-          data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              title: function(context) {
-                const fullMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                return fullMonths[context[0].dataIndex];
-              }
-            }
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [4, 4],
-              color: '#e5e5e5'
-            },
-            ticks: {
-              display: true,
-              color: '#737373',
-              padding: 10,
-              font: {
-                size: 12,
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#737373',
-              padding: 10,
-              font: {
-                size: 12,
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-
-    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-    new Chart(ctx3, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Tasks",
-          tension: 0,
-          borderWidth: 2,
-          pointRadius: 3,
-          pointBackgroundColor: "#43A047",
-          pointBorderColor: "transparent",
-          borderColor: "#43A047",
-          backgroundColor: "transparent",
-          fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [4, 4],
-              color: '#e5e5e5'
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#737373',
-              font: {
-                size: 14,
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [4, 4]
-            },
-            ticks: {
-              display: true,
-              color: '#737373',
-              padding: 10,
-              font: {
-                size: 14,
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-  </script>
-  <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {

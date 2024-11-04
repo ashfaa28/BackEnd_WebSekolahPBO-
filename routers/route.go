@@ -3,11 +3,17 @@ package routers
 import (
 	"Project_PBO/controllers"
 	"Project_PBO/handlers"
+	"Project_PBO/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func Route(app *fiber.App) {
+
+	app.Get("db/admin/sign_in", handlers.SignIn)
+	app.Get("db/admin/sign_up", handlers.SignUp)
+	app.Post("/signup", controllers.SignUp)
+	app.Post("/login", controllers.Login)
 
 	siswaGroup := app.Group("/api/siswa")
 	siswaGroup.Get("/showAll", controllers.SiswaControllerShow)
@@ -20,6 +26,7 @@ func Route(app *fiber.App) {
 	beritaGroup.Post("/create", controllers.BeritaControllerCreate)
 	beritaGroup.Delete("/delete/:id", controllers.BeritaControllerDelete)
 	beritaGroup.Put("/update/:id", controllers.BeritaControllerUpdate)
+	beritaGroup.Get("/:id", controllers.BeritaControllerShowByID)
 
 	prestasiGroup := app.Group("/api/prestasi")
 	prestasiGroup.Get("/showAll", controllers.PrestasiControllerShow)
@@ -29,18 +36,18 @@ func Route(app *fiber.App) {
 
 	app.Get("/static/*", handlers.StaticHandler)
 	app.Get("/pkg/*", handlers.PkgHandler)
+	app.Get("/uploads/*", handlers.UploadsHandler)
 
 	app.Get("/", handlers.Home)
 	app.Get("/Daftar", handlers.Form)
 	app.Get("/Register", handlers.Register)
 
-	app.Get("/db/admin/dashboard", handlers.Dashboard)
-	app.Get("/db/admin/prestasi", handlers.FormPrestasi)
-	app.Get("/db/admin/infoSiswa", handlers.InfoSiswa)
-	app.Get("/db/admin/profile", handlers.Profile)
-	app.Get("db/admin/sign_in", handlers.SignIn)
-	app.Get("db/admin/sign_up", handlers.SignUp)
-	app.Get("db/admin/berita", handlers.FormBerita)
+	admin := app.Group("/db/admin", middleware.AuthMiddleware())
+	admin.Get("/dashboard", handlers.Dashboard)
+	admin.Get("/prestasi", handlers.FormPrestasi)
+	admin.Get("/infoSiswa", handlers.InfoSiswa)
+	admin.Get("/profile", handlers.Profile)
+	admin.Get("/berita", handlers.FormBerita)
 
 	//Buat user gabisa ke mana mana selain yang ada di route
 	app.Use(func(c *fiber.Ctx) error {

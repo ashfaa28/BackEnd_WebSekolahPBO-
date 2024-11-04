@@ -8,10 +8,17 @@
 </head>
 <body>
     <div class="form-container">
+        <!-- Pesan sukses -->
         <div id="success-message" style="display: none;">
             <p>Pendaftaran Berhasil! ✔️</p>
         </div>
-<br><br>
+        
+        <!-- Pesan error -->
+        <div id="error-message" style="display: none; color: red;">
+            <p>Pendaftaran Gagal NISN Telah Terdaftar</p>
+        </div>
+        
+        <br><br>
         <h2>Form Registrasi Siswa</h2>
         <form id="registrasi-form" action="/api/siswa/create" method="POST">
             <div class="form-group">
@@ -85,24 +92,11 @@
             </div>
         
             <div class="form-buttons">
-                <button type="submit">Daftar</button>
+                <button type="submit" id="daftar-button">Daftar</button>
             </div>
         </form>
-        
-        
     </div>
 </body>
 
-<script>
-    document.getElementById('registrasi-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Form submission logic here
-    
-    // When submission is successful:
-    document.getElementById('success-message').style.display = 'block';
-    document.querySelector('.form-buttons').style.display = 'none';  // Changed to querySelector
-});
-</script>
 <script src="/pkg/convert.js"></script>
 </html>

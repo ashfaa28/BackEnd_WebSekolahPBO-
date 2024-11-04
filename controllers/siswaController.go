@@ -28,8 +28,18 @@ func SiswaControllerCreate(c *fiber.Ctx) error {
 	validation := validator.New()
 	if err := validation.Struct(siswa); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error":   true,
 			"message": "Validasi data siswa gagal",
-			"error":   err.Error(),
+			"details": err.Error(),
+		})
+	}
+
+	// Check for duplicate NISN
+	var existingSiswa entity.Siswa
+	if err := database.DB.Where("nisn = ?", siswa.NISN).First(&existingSiswa).Error; err == nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error":   true,
+			"message": "NISN sudah terdaftar.",
 		})
 	}
 
@@ -49,11 +59,13 @@ func SiswaControllerCreate(c *fiber.Ctx) error {
 
 	if err := database.DB.Create(&siswaBaru).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Gagal membuat siswa baru",
+			"error":   true,
+			"message": "Gagal membuat siswa baru.",
 		})
 	}
 	return c.JSON(fiber.Map{
-		"message": "Siswa berhasil dibuat",
+		"error":   false,
+		"message": "Siswa berhasil dibuat.",
 		"data":    siswaBaru,
 	})
 }
@@ -64,6 +76,7 @@ func SiswaControllerUpdate(c *fiber.Ctx) error {
 
 	if err := database.DB.First(&siswa, id).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error":   true,
 			"message": "Siswa tidak ditemukan",
 		})
 	}
@@ -76,8 +89,18 @@ func SiswaControllerUpdate(c *fiber.Ctx) error {
 	validation := validator.New()
 	if err := validation.Struct(reqData); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error":   true,
 			"message": "Validasi data siswa gagal",
-			"error":   err.Error(),
+			"details": err.Error(),
+		})
+	}
+
+	// Check if the new NISN is taken by another student
+	var existingSiswa entity.Siswa
+	if err := database.DB.Where("nisn = ? AND id != ?", reqData.NISN, id).First(&existingSiswa).Error; err == nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error":   true,
+			"message": "NISN sudah terdaftar.",
 		})
 	}
 
@@ -95,12 +118,14 @@ func SiswaControllerUpdate(c *fiber.Ctx) error {
 
 	if err := database.DB.Save(&siswa).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Gagal memperbarui data siswa",
+			"error":   true,
+			"message": "Gagal memperbarui data siswa.",
 		})
 	}
 
 	return c.JSON(fiber.Map{
-		"message": "Data siswa berhasil diperbarui",
+		"error":   false,
+		"message": "Data siswa berhasil diperbarui.",
 		"data":    siswa,
 	})
 }
@@ -111,17 +136,20 @@ func SiswaControllerDelete(c *fiber.Ctx) error {
 
 	if err := database.DB.First(&siswa, id).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"message": "Siswa tidak ditemukan",
+			"error":   true,
+			"message": "Siswa tidak ditemukan.",
 		})
 	}
 
 	if err := database.DB.Delete(&siswa).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Gagal menghapus data siswa",
+			"error":   true,
+			"message": "Gagal menghapus data siswa.",
 		})
 	}
 
 	return c.JSON(fiber.Map{
-		"message": "Data siswa berhasil dihapus",
+		"error":   false,
+		"message": "Data siswa berhasil dihapus.",
 	})
 }

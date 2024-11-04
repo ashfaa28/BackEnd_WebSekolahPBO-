@@ -103,21 +103,16 @@
     <h2>Penghargaan Sekolah</h2>
     <div class="slider-container">
       <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="slider-wrapper">
-        <div class="slide"><img src="/static/assets/img/penghargaan1.png" alt="Penghargaan 1"></div>
-        <div class="slide"><img src="/static/assets/img/penghargaan2.png" alt="Penghargaan 2"></div>
-        <div class="slide"><img src="/static/assets/img/penghargaan3.png" alt="Penghargaan 3"></div>
-        <div class="slide"><img src="/static/assets/img/penghargaan4.png" alt="Penghargaan 4"></div> <!-- Slide ke-4 -->
+      <div class="slider-wrapper" id="sliderWrapper">
+        <!-- Isi prestasi atau penghargaan sekolah -->
       </div>
       <button class="next" onclick="moveSlide(1)">&#10095;</button>
     </div>
-    <div class="dots">
-      <span class="dot" onclick="currentSlide(0)"></span>
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span> <!-- Dot ke-4 -->
+    <div class="dots" id="dotsContainer">
+      <!-- Dots ditambahin di sini -->
     </div>
-  </section>
+</section>
+
   
 
 
@@ -125,36 +120,6 @@
   <section id="prestasi">
     <h2>PRESTASI</h2>
     <div class="prestasi-container">
-        <div class="prestasi-card">
-            <img src="/static/assets/img/futsa.jpg" alt="Prestasi 1">
-            <h3>Juara 1 Lomba Futsal</h3>
-            <p>Tim Futsal SMK Citra Negara mendapatkan Juara 1 Futsal di Economy Futsal Competition UNSURYA SMA/SMK SE-JABODETABEK 2024</p>
-        </div>
-        <div class="prestasi-card">
-            <img src="/static/assets/img/Dance.jpg" alt="Prestasi 2">
-            <h3>Juara 1 Lomba Dance</h3>
-            <p>Prestasi membanggakan dengan meraih Juara 3 Artventura Voll II Dancer Se-Jawa Barat.</p>
-        </div>
-        <div class="prestasi-card">
-            <img src="/static/assets/img/futsal.jpg" alt="Prestasi 3">
-            <h3>Juara 1 Futsal</h3>
-            <p>Siswa kami berhasil memenangkan juara 1 dalam ajang lomba Futsal di BSI Flash Sport Competition Depok 2024.</p>
-        </div>
-        <div class="prestasi-card">
-            <img src="/static/assets/img/Volly.jpg" alt="Prestasi 4">
-            <h3>Juara 1 Lomba Volly Putra</h3>
-            <p>Juara 1 Volly Putra di Kreopatra Cup Volly Putra 2024 SMA/SMK Se-Jabodetabek.</p>
-        </div>
-        <div class="prestasi-card">
-            <img src="/static/assets/img/Paskibra.heic" alt="Prestasi 5">
-            <h3>Juara 2 PBB</h3>
-            <p>Prestasi luar biasa dengan meraih Juara 2 Utama dalam Lomba Jawa Barat Open.</p>
-        </div>
-        <div class="prestasi-card">
-            <img src="/static/assets/img/Band.jpg" alt="Prestasi 6">
-            <h3>Juara 2 dan The Best Guitarist</h3>
-            <p>Group Band SMK Citra Negara mendapatkan Quimica Juara 2 dan The Best Guitarist di Sampoerna Band High School Competition Se-Jabodetabek</p>
-        </div>
     </div>
 </section>
 
@@ -270,6 +235,7 @@
         </div>
     </body>
 </footer>
+<script src="/pkg/homeConvert.js"></script>
 <script src="/static/js/script.js"></script>
 <script src="/static/js/Home.js"></script>
 <script>
