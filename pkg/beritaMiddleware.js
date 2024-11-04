@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const tr = document.createElement('tr');
   
           // Tambahkan gambar dan isi berita
-          const imgPath = berita.gambar.startsWith("uploads/") ? berita.gambar : `uploads/berita/${berita.gambar}`;
+          const imgPath = berita.gambar.startsWith("/") ? berita.gambar : `/${berita.gambar}`;
           const imgCell = document.createElement('td');
           imgCell.innerHTML = `
             <div class="d-flex px-2 py-1">

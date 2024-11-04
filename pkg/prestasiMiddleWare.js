@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Gambar: ${prestasi.gambar}`);
         const tr = document.createElement('tr');
 
-        const imgPath = prestasi.gambar.startsWith("uploads/")
+        const imgPath = prestasi.gambar.startsWith("/uploads/")
           ? prestasi.gambar
-          : `uploads/prestasi/${prestasi.gambar}`;
+          : `/${prestasi.gambar}`;
 
         const imgCell = document.createElement('td');
         imgCell.innerHTML = `
