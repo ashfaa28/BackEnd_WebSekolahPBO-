@@ -157,7 +157,7 @@ body, html {
       width: 100%;
       height: 100%;
       object-fit: cover; /* Memastikan video menutupi seluruh area */
-      z-index: -1; /* Mengatur agar video di belakang konten */
+      z-index: 1; /* Mengatur agar video di belakang konten */
   }
   
   .vidio-overlay {
@@ -221,7 +221,7 @@ body, html {
   /* Ganti latar belakang video dengan gambar di mobile */
   @media (max-width: 768px) {
       .hero {
-          background-image: url('../img/your-image.jpg'); /* Ganti dengan gambar yang diinginkan */
+          background-image: url('/static/assets/img/2020-08-21.jpg'); /* Ganti dengan gambar yang diinginkan */
           background-size: cover;
           background-position: center;
           height: 100vh; /* Pastikan tinggi tetap 100vh */
@@ -269,8 +269,9 @@ body, html {
 
 .jurusan-slider {
   position: relative;
-  width: 1300px;
-  height: 450px;
+  width: 100%; /* Menggunakan lebar 100% agar responsif */
+  max-width: 1300px; /* Atur lebar maksimum jika diperlukan */
+  height: 450px; /* Anda bisa menggunakan 'vh' untuk tinggi responsif */
   margin: 0 auto;
   overflow: hidden;
   display: flex;
@@ -282,10 +283,11 @@ body, html {
 .jurusan-wrapper {
   display: flex;
   transition: transform 0.5s ease;
+  width: 100%; /* Menjaga wrapper agar memenuhi lebar slider */
 }
 
 .jurusan-wrapper img {
-  width: 120px;
+  width: 120px; /* Anda bisa mempertimbangkan untuk menggunakan % atau vw di sini juga */
   height: auto;
   margin: 0 20px;
   border-radius: 20px;
@@ -295,7 +297,6 @@ body, html {
 .jurusan-wrapper img:hover {
   transform: scale(1.1);
 }
-
 
 button.prev, button.next {
   background-color: #00509d;
@@ -310,12 +311,13 @@ button.prev, button.next {
 }
 
 button.prev {
-  left: -0;
+  left: 10px; /* Memberikan sedikit jarak dari tepi */
 }
 
 button.next {
-  right: 0;
+  right: 10px; /* Memberikan sedikit jarak dari tepi */
 }
+
 
 /* Section Daftar Siswa */
 #daftar-siswa {
@@ -813,18 +815,107 @@ body {
   border: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .footer-container {
+/* Lebar default untuk desktop */
+.content {
+  width: 100%; /* Lebar elemen di layar besar */
+  margin: auto;
+}
+
+/* Media Query untuk Tablet */
+@media (max-width: 1204px) {
+  .container {
+      padding: 10px;
+  }
+
+  .top-nav {
       flex-direction: column;
-      text-align: center;
-  }
-
-  .footer-left {
-      margin-bottom: 30px;
-  }
-
-  .footer-right {
       align-items: center;
   }
+
+  .content {
+      width: 100%; /* Lebih lebar di tablet */
+  }
+
 }
+
+/* Media Query untuk Ponsel */
+@media (max-width: 414px) {
+  .container {
+      padding: 5px;
+  }
+
+  .top-nav {
+      flex-direction: column;
+      padding: 10px;
+  }
+
+  .content {
+      width: 100%; /* Memenuhi layar di ponsel */
+      padding: 10px;
+  }
+
+  /* Lebar default untuk desktop */
+.content {
+  width: 100%; /* Lebar elemen di layar besar */
+  margin: auto;
+}
+
+/* Media Query untuk Tablet */
+@media (max-width: 1204px) {
+  .container {
+      padding: 10px;
+  }
+
+  .top-nav {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .content {
+      width: 100%; /* Lebih lebar di tablet */
+  }
+
+}
+
+/* Media Query untuk Ponsel */
+@media (max-width: 414px) {
+  .container {
+      padding: 5px;
+  }
+
+  .top-nav {
+      flex-direction: column;
+      padding: 10px;
+  }
+
+  .content {
+      width: 100%; /* Memenuhi layar di ponsel */
+      padding: 10px;
+  }
+
+  @media (max-width: 853px) {
+    .jurusan-slider {
+      height: 1180px; /* Tinggi slider lebih kecil untuk tablet */
+    }
+  
+    .jurusan-wrapper img {
+      width: 80px; /* Ukuran gambar lebih kecil untuk tablet */
+    }
+  }
+  
+  @media (max-width: 401px) {
+    .jurusan-slider {
+      height: 400px; /* Tinggi slider lebih kecil untuk ponsel */
+    }
+  
+    .jurusan-wrapper img {
+      width: 60px; /* Ukuran gambar lebih kecil untuk ponsel */
+    }
+  }
+  
+
+}
+
+}
+
+

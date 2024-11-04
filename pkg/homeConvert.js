@@ -41,7 +41,7 @@ fetch("/api/prestasi/showAll")
           // Pastikan path gambar benar
           const imgPath = berita.gambar.startsWith("uploads/")
             ? berita.gambar
-            : `uploads/berita/${berita.gambar}`;
+            : `${berita.gambar}`;
   
           const prestasiCard = document.createElement("div");
           prestasiCard.classList.add("prestasi-card");
