@@ -150,3 +150,21 @@ func BeritaControllerDelete(c *fiber.Ctx) error {
 		"message": "Data berita berhasil dihapus",
 	})
 }
+
+func BeritaControllerShowByID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var berita entity.Berita
+
+	// Cari berita berdasarkan ID
+	if err := database.DB.First(&berita, id).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "Berita tidak ditemukan",
+		})
+	}
+
+	// Kembalikan data berita yang ditemukan
+	return c.JSON(fiber.Map{
+		"message": "Data berita berhasil ditemukan",
+		"data":    berita,
+	})
+}
