@@ -20,13 +20,14 @@ func Route(app *fiber.App) {
 	siswaGroup.Post("/create", controllers.SiswaControllerCreate)
 	siswaGroup.Delete("/delete/:id", controllers.SiswaControllerDelete)
 	siswaGroup.Put("/update/:id", controllers.SiswaControllerUpdate)
+	siswaGroup.Get("/db/admin/siswa/:id", controllers.SiswaControllerShowByID)
 
 	beritaGroup := app.Group("/api/berita")
 	beritaGroup.Get("/showAll", controllers.BeritaControllerShow)
 	beritaGroup.Post("/create", controllers.BeritaControllerCreate)
 	beritaGroup.Delete("/delete/:id", controllers.BeritaControllerDelete)
 	beritaGroup.Put("/update/:id", controllers.BeritaControllerUpdate)
-	beritaGroup.Get("/:id", controllers.BeritaControllerShowByID)
+	beritaGroup.Get("/show/:id", controllers.BeritaControllerShowByID)
 
 	prestasiGroup := app.Group("/api/prestasi")
 	prestasiGroup.Get("/showAll", controllers.PrestasiControllerShow)
@@ -46,7 +47,6 @@ func Route(app *fiber.App) {
 	admin.Get("/dashboard", handlers.Dashboard)
 	admin.Get("/prestasi", handlers.FormPrestasi)
 	admin.Get("/infoSiswa", handlers.InfoSiswa)
-	admin.Get("/profile", handlers.Profile)
 	admin.Get("/berita", handlers.FormBerita)
 
 	//Buat user gabisa ke mana mana selain yang ada di route

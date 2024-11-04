@@ -64,12 +64,6 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="/db/admin/profile">
-            <i class="material-symbols-rounded opacity-5">person</i>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link text-dark" href="/db/admin/sign_in">
             <i class="material-symbols-rounded opacity-5">login</i>
             <span class="nav-link-text ms-1">Sign In</span>
@@ -84,6 +78,80 @@
       </ul>
     </div>
   </aside>
+
+<!-- Modal Form Tambah/Edit -->
+<div class="modal fade" id="modalFormSiswa" tabindex="-1" role="dialog" aria-labelledby="modalFormSiswaLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalFormSiswaLabel">Tambah/Edit Data Siswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formSiswa">
+          <input type="hidden" id="siswaID" name="id">
+
+          <div class="form-group">
+            <label for="nama">Nama</label>
+            <input type="text" class="form-control" id="nama" name="nama" required>
+          </div>
+          <div class="form-group">
+            <label for="nisn">NISN</label>
+            <input type="text" class="form-control" id="nisn" name="nisn" required>
+          </div>
+          <div class="form-group">
+            <label for="jenkel">Jenis Kelamin</label>
+            <select class="form-control" id="jenkel" name="jenkel" required>
+              <option value="">Pilih Jenis Kelamin</option>
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="usia">Usia</label>
+            <input type="number" class="form-control" id="usia" name="usia" required>
+          </div>
+          <div class="form-group">
+            <label for="alamat">Alamat</label>
+            <textarea class="form-control" id="alamat" name="alamat" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="nama_ayah">Nama Ayah</label>
+            <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" required>
+          </div>
+          <div class="form-group">
+            <label for="nama_ibu">Nama Ibu</label>
+            <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" required>
+          </div>
+          <div class="form-group">
+            <label for="no_telp_orang_tua">No Telp Orang Tua</label>
+            <input type="tel" class="form-control" id="no_telp_orang_tua" name="no_telp_orang_tua" required>
+          </div>
+          <div class="form-group">
+            <label for="asal_sekolah">Asal Sekolah</label>
+            <input type="text" class="form-control" id="asal_sekolah" name="asal_sekolah" required>
+          </div>
+          <div class="form-group">
+            <label for="jurusan">Jurusan</label>
+            <input type="text" class="form-control" id="jurusan" name="jurusan" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <div class="container-fluid py-2">
       <div class="row">
@@ -99,7 +167,9 @@
                       <h6 class="mb-0">Tambah Data Baru</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;Add New Data</a>
+                      <button class="btn bg-gradient-dark mb-0" id="btnTambahData">
+                        <i class="material-symbols-rounded text-sm">add</i>  Add New Data
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -116,61 +186,9 @@
               <h6 class="mb-0">Informasi Siswa/Siswi</h6>
             </div>
             <div class="card-body pt-4 p-3">
-              <ul class="list-group">
-                {{range .Siswa}}
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="mb-3 text-sm">{{.Nama}}</h6>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">NISN :</span>
-                      <span class="text-dark font-weight-bold">{{.NISN}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">JenKel :</span>
-                      <span class="text-dark font-weight-bold">{{.JenKel}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Email :</span>
-                      <span class="text-dark font-weight-bold">{{.Email}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Usia :</span>
-                      <span class="text-dark font-weight-bold">{{.Usia}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Alamat :</span>
-                      <span class="text-dark font-weight-bold">{{.Alamat}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Nama Ayah :</span>
-                      <span class="text-dark font-weight-bold">{{.NamaAyah}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Nama Ibu :</span>
-                      <span class="text-dark font-weight-bold">{{.NamaIbu}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">No Telp Ortu :</span>
-                      <span class="text-dark font-weight-bold">{{.NoTelpOrtu}}</span>
-                    </div>
-                    <div class="d-flex mb-2 text-xs">
-                      <span class="label">Asal Sekolah :</span>
-                      <span class="text-dark font-weight-bold">{{.AsalSekolah}}</span>
-                    </div>
-                  </div>
-                  <div class="ms-auto text-end">
-                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="/db/admin/siswa/delete/{{.ID}}">
-                      <i class="material-symbols-rounded text-sm me-2">delete</i>Delete
-                    </a>
-                    <a class="btn btn-link text-dark px-3 mb-0" href="/db/admin/siswa/edit/{{.ID}}">
-                      <i class="material-symbols-rounded text-sm me-2">edit</i>Edit
-                    </a>
-                  </div>
-                </li>
-                {{end}}
+              <ul class="list-group" id="listSiswa">
               </ul>
             </div>
-
           </div>
         </div>
         <div class="col-md-5 mt-4">
@@ -187,6 +205,126 @@
       </footer>
     </div>
   </main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Tampilkan modal form untuk tambah data
+    $('#btnTambahData').on('click', function () {
+      $('#formSiswa')[0].reset();
+      $('#siswaID').val('');
+      $('#modalFormSiswaLabel').text('Tambah Data Siswa');
+      $('#modalFormSiswa').modal('show');
+    });
+
+
+    $('#formSiswa').on('submit', function (e) {
+  e.preventDefault();
+  const id = $('#siswaID').val();
+  const url = id ? `/api/siswa/update/${id}` : '/api/siswa/create';
+
+  $.ajax({
+    type: 'POST', 
+    url: url,
+    contentType: 'application/json',
+    data: JSON.stringify(Object.fromEntries(new FormData(this))),
+    success: function (response) {
+      $('#modalFormSiswa').modal('hide');
+      loadSiswa();
+    },
+    error: function (xhr, status, error) {
+      console.log('Error:', error);
+      alert('Gagal menyimpan data. Error: ' + error);
+    }
+  });
+});
+
+
+
+    function loadSiswa() {
+      $.ajax({
+        url: '/api/siswa/showAll',
+        type: 'GET',
+        success: function (data) {
+          console.log(data);
+          let html = '';
+          data.forEach(function (siswa) {
+            html += `
+              <li class="list-group-item d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-sm">${siswa.nama}</h6>
+                  <div class="d-flex mb-2 text-xs"><span class="label">NISN :</span> <span class="text-dark font-weight-bold">${siswa.nisn}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Jenis Kelamin :</span> <span class="text-dark font-weight-bold">${siswa.jenkel}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Email :</span> <span class="text-dark font-weight-bold">${siswa.email}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Usia :</span> <span class="text-dark font-weight-bold">${siswa.usia}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Alamat :</span> <span class="text-dark font-weight-bold">${siswa.alamat}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Nama Ayah :</span> <span class="text-dark font-weight-bold">${siswa.nama_ayah}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Nama Ibu :</span> <span class="text-dark font-weight-bold">${siswa.nama_ibu}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">No Telp Orang Tua :</span> <span class="text-dark font-weight-bold">${siswa.no_telp_orang_tua}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Asal Sekolah :</span> <span class="text-dark font-weight-bold">${siswa.asal_sekolah}</span></div>
+                  <div class="d-flex mb-2 text-xs"><span class="label">Jurusan :</span> <span class="text-dark font-weight-bold">${siswa.jurusan}</span></div>
+                </div>
+                <div class="ms-auto text-end">
+                  <button class="btn btn-link text-danger px-3 mb-0 btnDelete" data-id="${siswa.id}">
+                    <i class="material-symbols-rounded text-sm me-2">delete</i>Delete
+                  </button>
+                  <button class="btn btn-link text-dark px-3 mb-0 btnEdit" data-id="${siswa.id}">
+                    <i class="material-symbols-rounded text-sm me-2">edit</i>Edit
+                  </button>
+                </div>
+              </li>
+            `;
+          });
+          $('#listSiswa').html(html);
+        }
+      });
+    }
+
+    $('#listSiswa').on('click', '.btnDelete', function () {
+      const id = $(this).data('id');
+      if (confirm('Anda yakin ingin menghapus data ini?')) {
+        $.ajax({
+          url: `/api/siswa/delete/${id}`,
+          type: 'DELETE',
+          success: function () {
+            loadSiswa();
+          },
+          error: function () {
+            alert('Gagal menghapus data.');
+          }
+        });
+      }
+    });
+
+    $('#listSiswa').on('click', '.btnEdit', function () {
+      const id = $(this).data('id');
+      $.ajax({
+        url: `/api/siswa/update/${id}`,
+        type: 'GET',
+        success: function (siswa) {
+          $('#siswaID').val(siswa.id);
+          $('#nama').val(siswa.nama);
+          $('#nisn').val(siswa.nisn);
+          $('#jenkel').val(siswa.jenkel);
+          $('#email').val(siswa.email);
+          $('#usia').val(siswa.usia);
+          $('#alamat').val(siswa.alamat);
+          $('#nama_ayah').val(siswa.nama_ayah);
+          $('#nama_ibu').val(siswa.nama_ibu);
+          $('#no_telp_orang_tua').val(siswa.no_telp_orang_tua);
+          $('#asal_sekolah').val(siswa.asal_sekolah);
+          $('#jurusan').val(siswa.jurusan);
+          $('#modalFormSiswaLabel').text('Edit Data Siswa');
+          $('#modalFormSiswa').modal('show');
+        }
+      });
+    });
+
+    loadSiswa();
+  });
+</script>
+
   <!--   Core JS Files   -->
   <script src="/static/js/core/popper.min.js"></script>
   <script src="/static/js/core/bootstrap.min.js"></script>
@@ -201,9 +339,7 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/static/js/material-dashboard.min.js?v=3.2.0"></script>
 </body>
 

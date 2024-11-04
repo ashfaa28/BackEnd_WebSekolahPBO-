@@ -29,8 +29,15 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		})
 	}
 
+	judul := c.FormValue("judul")
+	if judul == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Judul berita harus diisi",
+		})
+	}
+
 	validation := validator.New()
-	reqData := req.BeritaReq{IsiBerita: isiBerita}
+	reqData := req.BeritaReq{IsiBerita: isiBerita, Judul: judul}
 	if err := validation.Struct(&reqData); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Validasi data berita gagal",
@@ -56,6 +63,7 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 	beritaBaru := entity.Berita{
 		Gambar:    filePath,
 		IsiBerita: isiBerita,
+		Judul:     judul,
 	}
 
 	if err := database.DB.Create(&beritaBaru).Error; err != nil {
@@ -69,7 +77,6 @@ func BeritaControllerCreate(c *fiber.Ctx) error {
 		"data":    beritaBaru,
 	})
 }
-
 func BeritaControllerUpdate(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var berita entity.Berita

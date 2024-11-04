@@ -7,12 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Gambar: ${prestasi.gambar}`);
         const tr = document.createElement('tr');
 
-        // Pastikan path hanya ditambahkan sekali
         const imgPath = prestasi.gambar.startsWith("uploads/")
           ? prestasi.gambar
           : `uploads/prestasi/${prestasi.gambar}`;
 
-        // Add image cell
         const imgCell = document.createElement('td');
         imgCell.innerHTML = `
           <div class="d-flex px-2 py-1">
@@ -25,14 +23,12 @@ document.addEventListener("DOMContentLoaded", function() {
           </div>`;
         tr.appendChild(imgCell);
 
-        // Add date cell (formatted from created_at)
         const dateCell = document.createElement('td');
         const date = new Date(prestasi.CreatedAt);
         dateCell.className = "align-middle text-center";
         dateCell.innerHTML = `<span class="text-secondary text-xs font-weight-bold">${date.toLocaleDateString()}</span>`;
         tr.appendChild(dateCell);
 
-        // Add actions (Edit and Delete)
         const actionCell = document.createElement('td');
         actionCell.className = "align-middle text-center";
         actionCell.innerHTML = `<a href="#" class="text-secondary font-weight-bold text-xs" onclick="deletePrestasi(${prestasi.ID})">Hapus</a>`;
@@ -81,7 +77,7 @@ function deletePrestasi(id) {
     .then(response => {
       if (response.ok) {
         alert("Data prestasi berhasil dihapus");
-        location.reload(); // Reload the table
+        location.reload(); 
       } else {
         alert("Gagal menghapus data prestasi");
       }

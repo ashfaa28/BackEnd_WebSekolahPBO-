@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="d-flex px-2 py-1">
               <div><img src="${imgPath}" class="avatar avatar-sm me-3 border-radius-lg" width="150" height="150" alt="berita"></div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">${berita.isi_berita}</h6>
+                <h6 class="mb-0 text-sm text-black">${berita.isi_berita}</h6>
+                <h6 class="mb-0 text-sm">${berita.judul}</h6>
               </div>
             </div>`;
           tr.appendChild(imgCell);
