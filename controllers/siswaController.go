@@ -153,3 +153,17 @@ func SiswaControllerDelete(c *fiber.Ctx) error {
 		"message": "Data siswa berhasil dihapus.",
 	})
 }
+
+func SiswaControllerShowByID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var siswa entity.Siswa
+
+	if err := database.DB.First(&siswa, id).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error":   true,
+			"message": "Siswa tidak ditemukan",
+		})
+	}
+
+	return c.JSON(siswa)
+}

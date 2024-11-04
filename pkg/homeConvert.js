@@ -2,22 +2,20 @@ fetch("/api/prestasi/showAll")
   .then((response) => response.json())
   .then((data) => {
     const sliderWrapper = document.getElementById("sliderWrapper");
-    sliderWrapper.innerHTML = ""; // Kosongkan slider sebelum menambahkan gambar baru
+    sliderWrapper.innerHTML = "";
     data.forEach((prestasi, index) => {
       const slide = document.createElement("div");
       slide.classList.add("slide");
       const img = document.createElement("img");
       const imgPath = `${prestasi.gambar}`;
-      console.log(`Mengakses gambar: ${imgPath}`); // Log untuk debugging
       img.src = imgPath;
       img.alt = `Penghargaan ${index + 1}`;
       slide.appendChild(img);
       sliderWrapper.appendChild(slide);
     });
 
-    // Update dots sesuai jumlah gambar
     const dotsContainer = document.querySelector(".dots");
-    dotsContainer.innerHTML = ""; // Kosongkan dots sebelum menambah yang baru
+    dotsContainer.innerHTML = "";
     data.forEach((_, index) => {
       const dot = document.createElement("span");
       dot.classList.add("dot");
@@ -25,7 +23,7 @@ fetch("/api/prestasi/showAll")
       dotsContainer.appendChild(dot);
     });
 
-    showSlide(0); // Menampilkan slide pertama setelah gambar dimuat
+    showSlide(0);
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
@@ -33,12 +31,11 @@ fetch("/api/prestasi/showAll")
 
 
   document.addEventListener("DOMContentLoaded", function() {
-    // Ambil data prestasi dari API
     fetch('/api/berita/showAll')
       .then(response => response.json())
       .then(berita => {
         const prestasiContainer = document.querySelector(".prestasi-container");
-        prestasiContainer.innerHTML = ''; // Bersihkan konten sebelumnya
+        prestasiContainer.innerHTML = '';
   
         berita.forEach(berita => {
           // Pastikan path gambar benar
@@ -46,17 +43,15 @@ fetch("/api/prestasi/showAll")
             ? berita.gambar
             : `uploads/berita/${berita.gambar}`;
   
-          // Buat elemen prestasi-card baru
           const prestasiCard = document.createElement("div");
           prestasiCard.classList.add("prestasi-card");
   
           prestasiCard.innerHTML = `
             <img src="${imgPath}" alt="Prestasi ${berita.ID}">
-            <h3>${berita.judul}</h3>
+            <h5 style="color: black;">${berita.judul}</h5>
             <p>${berita.isi_berita}</p>
           `;
   
-          // Tambahkan card ke container
           prestasiContainer.appendChild(prestasiCard);
         });
       })

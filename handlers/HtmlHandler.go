@@ -85,9 +85,3 @@ func SignUp(c *fiber.Ctx) error {
 		"Title": "Sign Up SMK CN",
 	})
 }
-
-func Profile(c *fiber.Ctx) error {
-	return c.Render("profile", fiber.Map{
-		"Title": "Profile admin SMK CN",
-	})
-}
