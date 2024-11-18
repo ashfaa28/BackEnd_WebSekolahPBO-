@@ -427,24 +427,43 @@ button.next {
 
 /* Media Query untuk Responsif */
 @media (max-width: 768px) {
-    .container-daftar {
-        grid-template-columns: 1fr;
-    }
+  .container-daftar {
+      grid-template-columns: 1fr;  
+      justify-items: center;      
+      align-items: center;        
+      padding: 20px;              
+  }
 
-    .daftar-images {
-        flex-direction: column;
-        gap: 20px;
-    }
+  .daftar-text {
+      text-align: center;         
+  }
 
-    .daftar-text {
-        text-align: center;
-    }
+  .daftar-text p {
+      text-align: center;         
+  }
 
-    .daftar-text p {
-        text-align: center;
-    }
+  .daftar-images {
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;    
+      align-items: center;        
+  }
+
+  .image-card {
+      width: 80%;                
+      height: auto;              
+      display: flex;             
+      justify-content: center;   
+      align-items: center;       
+  }
+
+  .image-card img {
+      width: 100%;               
+      height: auto;              
+      object-fit: cover;         
+      border-radius: 15px;
+  }
 }
-
 
 
 /* Section Penghargaan */
@@ -850,28 +869,6 @@ body {
   .content {
     width: 100%; /* Memenuhi layar di ponsel */
     padding: 10px;
-  }
-}
-
-/* Media Query untuk Lebar Maksimal 853px (Tablet) */
-@media (max-width: 853px) {
-  .jurusan-slider {
-    height: 1180px; /* Tinggi slider lebih kecil untuk tablet */
-  }
-
-  .jurusan-wrapper img {
-    width: 80px; /* Ukuran gambar lebih kecil untuk tablet */
-  }
-}
-
-/* Media Query untuk Lebar Maksimal 401px (Ponsel) */
-@media (max-width: 401px) {
-  .jurusan-slider {
-    height: 330px; /* Tinggi slider lebih kecil untuk ponsel */
-  }
-
-  .jurusan-wrapper img {
-    width: 60px; /* Ukuran gambar lebih kecil untuk ponsel */
   }
 }
 
