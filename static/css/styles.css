@@ -849,6 +849,7 @@ body {
     flex-direction: column;
     align-items: center;
   }
+
   .content {
     width: 100%; /* Lebih lebar di tablet */
   }
@@ -869,5 +870,3 @@ body {
     width: 100%; /* Memenuhi layar di ponsel */
     padding: 10px;
   }
-}
-
