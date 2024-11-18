@@ -849,7 +849,6 @@ body {
     flex-direction: column;
     align-items: center;
   }
-
   .content {
     width: 100%; /* Lebih lebar di tablet */
   }
