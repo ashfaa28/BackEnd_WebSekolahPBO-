@@ -48,7 +48,6 @@ func Route(app *fiber.App) {
 	admin.Get("/prestasi", handlers.FormPrestasi)
 	admin.Get("/infoSiswa", handlers.InfoSiswa)
 	admin.Get("/berita", handlers.FormBerita)
-
 	app.Post("/Sendmail", handlers.HandleContactForm)
 
 	//Buat user gabisa ke mana mana selain yang ada di route
