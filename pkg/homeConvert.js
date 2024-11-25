@@ -1,34 +1,78 @@
 fetch("/api/prestasi/showAll")
   .then((response) => response.json())
   .then((data) => {
-    const sliderWrapper = document.getElementById("sliderWrapper");
-    sliderWrapper.innerHTML = "";
-    data.forEach((prestasi, index) => {
-      const slide = document.createElement("div");
-      slide.classList.add("slide");
-      const img = document.createElement("img");
-      const imgPath = `${prestasi.gambar}`;
-      img.src = imgPath;
-      img.alt = `Penghargaan ${index + 1}`;
-      slide.appendChild(img);
-      sliderWrapper.appendChild(slide);
-    });
+    const maxItemsPerPage = 6; // Maksimal 6 item per halaman
+    const galleryContainer = document.getElementById("galleryContainer"); // Container untuk semua halaman
+    galleryContainer.innerHTML = ""; // Kosongkan isi sebelumnya
 
+    // Hitung jumlah halaman
+    const totalPages = Math.ceil(data.length / maxItemsPerPage);
+
+    for (let page = 0; page < totalPages; page++) {
+      const pageDiv = document.createElement("div");
+      pageDiv.classList.add("gallery");
+      if (page === 0) pageDiv.classList.add("active"); // Set halaman pertama sebagai aktif
+      pageDiv.id = `page${page + 1}`;
+
+      // Ambil 6 item per halaman
+      const start = page * maxItemsPerPage;
+      const end = start + maxItemsPerPage;
+      const pageItems = data.slice(start, end);
+
+      // Tambahkan item ke halaman
+      pageItems.forEach((prestasi, index) => {
+        const galleryItem = document.createElement("div");
+        galleryItem.classList.add("gallery-item");
+
+        const img = document.createElement("img");
+        img.src = `${prestasi.gambar}`;
+        img.alt = `Prestasi ${start + index + 1}`;
+        galleryItem.appendChild(img);
+
+        pageDiv.appendChild(galleryItem);
+      });
+
+      // Masukkan halaman ke dalam container
+      galleryContainer.appendChild(pageDiv);
+    }
+
+    // Buat navigasi dots
     const dotsContainer = document.querySelector(".dots");
-    dotsContainer.innerHTML = "";
-    data.forEach((_, index) => {
+    dotsContainer.innerHTML = ""; // Kosongkan dots sebelumnya
+
+    for (let i = 0; i < totalPages; i++) {
       const dot = document.createElement("span");
       dot.classList.add("dot");
-      dot.onclick = () => currentSlide(index);
+      if (i === 0) dot.classList.add("active"); // Set dot pertama sebagai aktif
+      dot.onclick = () => showPage(i);
       dotsContainer.appendChild(dot);
-    });
-
-    showSlide(0);
+    }
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
   });
 
+// Fungsi untuk menampilkan halaman berdasarkan indeks
+function showPage(pageIndex) {
+  const allPages = document.querySelectorAll(".gallery");
+  const allDots = document.querySelectorAll(".dot");
+
+  allPages.forEach((page, index) => {
+    if (index === pageIndex) {
+      page.classList.add("active");
+    } else {
+      page.classList.remove("active");
+    }
+  });
+
+  allDots.forEach((dot, index) => {
+    if (index === pageIndex) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+}
 
   document.addEventListener("DOMContentLoaded", function() {
     fetch('/api/berita/showAll')

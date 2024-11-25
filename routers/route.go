@@ -35,19 +35,25 @@ func Route(app *fiber.App) {
 	prestasiGroup.Put("/update/:id", controllers.PrestasiControllerUpdate)
 	prestasiGroup.Delete("/delete/:id", controllers.PrestasiControllerDelete)
 
+	EkskulGroup := app.Group("/api/ekskul")
+	EkskulGroup.Get("/showAll", controllers.EkskulControllerShow)
+	EkskulGroup.Post("/create", controllers.EkskulControllerCreate)
+	EkskulGroup.Put("/update/:id", controllers.EkskulControllerUpdate)
+	EkskulGroup.Delete("/delete/:id", controllers.EkskulControllerDelete)
+	EkskulGroup.Get("/show/:id", controllers.EkskulControllerShowByID)
+
 	app.Get("/static/*", handlers.StaticHandler)
 	app.Get("/pkg/*", handlers.PkgHandler)
 	app.Get("/uploads/*", handlers.UploadsHandler)
 
 	app.Get("/", handlers.Home)
-	app.Get("/Daftar", handlers.Form)
-	app.Get("/Register", handlers.Register)
 
 	admin := app.Group("/db/admin", middleware.AuthMiddleware())
 	admin.Get("/dashboard", handlers.Dashboard)
 	admin.Get("/prestasi", handlers.FormPrestasi)
 	admin.Get("/infoSiswa", handlers.InfoSiswa)
 	admin.Get("/berita", handlers.FormBerita)
+	admin.Get("/ekskul", handlers.FormEkskul)
 	app.Post("/Sendmail", handlers.HandleContactForm)
 
 	//Buat user gabisa ke mana mana selain yang ada di route

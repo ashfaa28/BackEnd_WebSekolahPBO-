@@ -8,20 +8,8 @@ import (
 )
 
 func Home(c *fiber.Ctx) error {
-	return c.Render("Home", fiber.Map{
-		"Title": "SMK Citra Negara",
-	})
-}
-
-func Form(c *fiber.Ctx) error {
-	return c.Render("Form", fiber.Map{
-		"Title": "Form Pendaftaran - Sekolah Citra Negara",
-	})
-}
-
-func Register(c *fiber.Ctx) error {
-	return c.Render("Register", fiber.Map{
-		"Title": "Form Register - Sekolah Citra Negara",
+	return c.Render("index", fiber.Map{
+		"Title": "Smk Citra Negara",
 	})
 }
 
@@ -59,6 +47,12 @@ func Dashboard(c *fiber.Ctx) error {
 func FormBerita(c *fiber.Ctx) error {
 	return c.Render("berita", fiber.Map{
 		"Title": "Form Berita SMK CN",
+	})
+}
+
+func FormEkskul(c *fiber.Ctx) error {
+	return c.Render("ekskul", fiber.Map{
+		"Title": "Form Ekskul SMK CN",
 	})
 }
 

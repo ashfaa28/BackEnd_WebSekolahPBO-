@@ -8,7 +8,7 @@ import (
 
 func StartMigration() {
 
-	err := database.DB.AutoMigrate(&entity.Siswa{}, &entity.Berita{}, &entity.Prestasi{}, &entity.Akun{})
+	err := database.DB.AutoMigrate(&entity.Siswa{}, &entity.Berita{}, &entity.Prestasi{}, &entity.Akun{}, &entity.Ekskul{})
 	if err != nil {
 		panic(err)
 	}

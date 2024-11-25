@@ -1,127 +1,201 @@
-let currentIndex = 2; // Mulai dari logo Pemasaran (indeks 2)
-const jurusanImages = document.querySelectorAll('.jurusan-wrapper img');
+document.addEventListener("DOMContentLoaded", () => {
+    const detailButtons = document.querySelectorAll(".detail-btn");
+    const popups = document.querySelectorAll(".popup-container");
 
-function updateSlides() {
-    // Reset semua gambar ke default
-    jurusanImages.forEach((img, index) => {
-        img.classList.remove('active');
-        img.style.transform = 'scale(1.5)'; // Reset skala untuk gambar yang tidak aktif
-        img.style.opacity = '0.2'; // Reset opasitas untuk gambar yang tidak aktif
-        img.style.zIndex = '1'; 
+    detailButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const targetId = button.getAttribute("data-target");
+            const popup = document.getElementById(targetId);
+            if (popup) {
+                popup.style.display = "flex";
+                document.body.classList.add("popup-active");
+            }
+        });
     });
 
-    // Tambahkan kelas aktif ke gambar saat ini
-    jurusanImages[currentIndex].classList.add('active');
-    jurusanImages[currentIndex].style.transform = 'scale(2.4)'; // Perbesar gambar aktif
-    jurusanImages[currentIndex].style.opacity = '1'; // Set opasitas penuh untuk gambar aktif
-    jurusanImages[currentIndex].style.zIndex = '10'; 
+    popups.forEach((popup) => {
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.style.display = "none";
+                document.body.classList.remove("popup-active");
+            }
+        });
+    });
+});
 
-    // Pusatkan gambar aktif
-    const offset = (currentIndex - 2) * 100; // Sesuaikan offset dengan gambar aktif di tengah
-    document.querySelector('.jurusan-wrapper').style.transform = `translateX(${-offset}px)`;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const nums = document.querySelectorAll('.num');
+
+    nums.forEach((num) => {
+        let startVal = 0;
+        let endVal = parseInt(num.getAttribute('data-val'));
+        let duration = 2000; // Durasi animasi dalam ms
+        let increment = endVal / (duration / 50); // Menentukan kecepatan kenaikan angka per interval
+        let interval = setInterval(() => {
+            startVal += increment;
+            num.textContent = Math.floor(startVal);
+            
+            if (startVal >= endVal) {
+                num.textContent = endVal;
+                clearInterval(interval);
+            }
+        }, 50);
+    });
+    
+    // Menambahkan class 'show' untuk memulai animasi ketika halaman dimuat
+    setTimeout(() => {
+        nums.forEach((num) => {
+            num.classList.add('show');
+        });
+    }, 8); // Delay 0.5 detik sebelum animasi dimulai
+});
+
+
+
+
+// Fungsi untuk menampilkan pop-up
+function openPopup() {
+    document.getElementById("pplg-detail").style.display = "flex";
 }
 
-// Tombol untuk navigasi ke kanan
-document.querySelector('.next').addEventListener('click', () => {
-    if (currentIndex === jurusanImages.length - 1) {
-        currentIndex = 0; // Kembali ke logo pertama jika sudah di akhir
-    } else {
-        currentIndex++;
-    }
-    updateSlides();
-});
+// Fungsi untuk menutup pop-up
+function closePopup() {
+    document.getElementById("pplg-detail").style.display = "none";
+}
 
-// Tombol untuk navigasi ke kiri
-document.querySelector('.prev').addEventListener('click', () => {
-    if (currentIndex === 0) {
-        currentIndex = jurusanImages.length - 0; // Kembali ke logo terakhir jika sudah di awal
-    } else {
-        currentIndex-1;
-    }
-    updateSlides();
-});
+// Menutup pop-up saat halaman dimuat
+window.onload = function () {
+    closePopup();
+};
 
-// Panggil awal untuk mengatur slide pertama
-updateSlides();
+// Fungsi untuk membuka pop-up
+function openPopup(id) {
+    document.getElementById(id).style.display = "flex";
+}
+
+// Fungsi untuk menutup pop-up
+function closePopup() {
+    const popups = document.querySelectorAll(".popup-container");
+    popups.forEach((popup) => (popup.style.display = "none"));
+}
 
 
+let currentIndex = 0;  // Indeks untuk slider saat ini
+const items = document.querySelectorAll('.team-member');  // Ambil semua elemen tim
+const sliderContainer = document.querySelector('.slider-container');
+const totalItems = items.length;  // Total jumlah item tim
+let maxSlides = 5;  // Batasan untuk slide ke kanan, default 5
 
-// Tombol untuk navigasi ke kiri
-document.querySelector('.prev').addEventListener('click', () => {
-    if (currentIndex === 0) {
-        currentIndex = 1; // Kembali ke logo Pemasaran jika sudah di awal
-    } else {
-        currentIndex--;
-        jurusanImages[currentIndex].style.zIndex = '10';
-    }
-    updateSlides();
-});
+// Fungsi untuk mendeteksi apakah perangkat dalam mode mobile
+function isMobile() {
+  return window.innerWidth < 768; // Misalnya, 768px dianggap mobile
+}
 
-// Panggil awal untuk mengatur slide pertama
-updateSlides();
+// Fungsi untuk memperbarui batas slide berdasarkan mode perangkat
+function updateMaxSlides() {
+  if (isMobile()) {
+    maxSlides = 6;  // Jika mobile, max slides 6
+  } else {
+    maxSlides = 3;  // Jika desktop, max slides 5
+  }
+  // Setelah memperbarui batas, sesuaikan posisi slider sesuai mode
+  updateSliderPosition();
+}
 
+// Fungsi untuk memperbarui posisi slider
+function updateSliderPosition() {
+  const slideWidth = items[0].offsetWidth + 20; // Lebar item + margin (sesuaikan dengan lebar item)
+  sliderContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`; // Geser slider sesuai index
+}
 
-
-let currentSlideIndex = 0;
-
-function moveSlide(n) {
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;  // Akan menjadi 4 sekarang
-
-  currentSlideIndex += n;
-
-  if (currentSlideIndex >= totalSlides) {
-    currentSlideIndex = 0;
+// Fungsi untuk pergi ke slide berikutnya
+function goToNextSlide() {
+  // Jika sudah mencapai batas slide, reset ke awal
+  if (currentIndex < totalItems - 1) {
+    currentIndex++;
+  } else {
+    currentIndex = 0; // Kembali ke awal jika sudah di slide terakhir
   }
 
-  if (currentSlideIndex < 0) {
-    currentSlideIndex = totalSlides - 1;
+  if (currentIndex >= maxSlides) {
+    currentIndex = 0; // Reset ke awal jika melebihi batas maxSlides
   }
 
-  updateSlide();
+  updateSliderPosition();
 }
 
-function currentSlide(n) {
-  currentSlideIndex = n;
-  updateSlide();
+// Fungsi untuk pergi ke slide sebelumnya
+function goToPrevSlide() {
+  if (currentIndex > 0) {
+    currentIndex--;
+  } else {
+    currentIndex = totalItems - 1; // Kembali ke item terakhir jika di awal
+  }
+  updateSliderPosition();
 }
 
-function updateSlide() {
-  const sliderWrapper = document.querySelector('.slider-wrapper');
-  sliderWrapper.style.transform = `translateX(${-currentSlideIndex * 100}%)`;
+// Event listeners untuk tombol next dan prev
+document.querySelector('.next').addEventListener('click', goToNextSlide);
+document.querySelector('.prev').addEventListener('click', goToPrevSlide);
 
-  const dots = document.querySelectorAll('.dot');
-  dots.forEach(dot => dot.classList.remove('active'));
-  dots[currentSlideIndex].classList.add('active');
+// Memperbarui maxSlides saat halaman dimuat atau ukuran jendela berubah
+window.addEventListener('resize', updateMaxSlides);
+updateMaxSlides(); // Menyesuaikan maxSlides saat halaman pertama kali dimuat
+
+
+// Menyimpan referensi gambar yang sedang diperbesar
+let currentExpanded = null;
+
+function expandEkstrakulikuler(card, description) {
+  // Reset semua gambar ke ukuran kecil dan hapus class 'expanded'
+  const allCards = document.querySelectorAll('.ekstrakulikuler-card');
+  allCards.forEach((c) => {
+    c.style.width = '100px';
+    c.style.height = '300px';
+    c.classList.remove('expanded');
+  });
+
+  // Jika gambar yang diklik berbeda dari gambar yang sedang diperbesar
+  if (currentExpanded !== card) {
+    // Perbesar gambar yang diklik
+    card.style.width = '300px';
+    card.style.height = '300px';
+    card.classList.add('expanded');
+    currentExpanded = card;
+
+    // Tampilkan deskripsi
+    const descriptionElement = document.getElementById('ekstrakulikuler-description');
+    descriptionElement.innerText = description;
+    descriptionElement.style.opacity = '1'; // Pastikan deskripsi terlihat
+  } else {
+    // Kembali ke ukuran semula
+    currentExpanded = null;
+
+    // Kosongkan deskripsi
+    const descriptionElement = document.getElementById('ekstrakulikuler-description');
+    descriptionElement.innerText = '';
+    descriptionElement.style.opacity = '0'; // Sembunyikan deskripsi
+  }
 }
 
-// Ganti Gambar PPDB
-let ppdbIndex = 0;
+let currentPage = 1;
+const totalPages = 3;
 
-// Daftar gambar untuk PPDB
-const ppdbImages1 = ['../static/assets/img/ppdb1.jpg', '../static/assets/img/ppdb3.jpg']; // Gambar pertama ke gambar ketiga
-const ppdbImages2 = ['../static/assets/img/ppdb2.jpeg', '../static/assets/img/ppdb4.jpg']; // Gambar kedua ke gambar keempat
-
-// Ambil elemen gambar
-const imageElement1 = document.getElementById('ppdb-1');
-const imageElement2 = document.getElementById('ppdb-2');
-
-// Fungsi untuk mengganti gambar
-function changePPDBImages() {
-    // Update gambar pertama dan kedua sesuai index
-    imageElement1.src = ppdbImages1[ppdbIndex];
-    imageElement2.src = ppdbImages2[ppdbIndex];
-
-    // Update index untuk gambar berikutnya
-    ppdbIndex = (ppdbIndex + 1) % ppdbImages1.length; // Loop kembali ke awal setelah dua gambar
+function showPage(pageNumber) {
+    const pages = document.querySelectorAll('.gallery');
+    pages.forEach((page, index) => {
+        page.classList.toggle('active', index + 1 === pageNumber);
+    });
+    document.querySelector('.page-number').textContent = pageNumber;
 }
 
-// Ganti gambar setiap 5 detik (5000 milidetik)
-setInterval(changePPDBImages, 3000);
+function nextPage() {
+    currentPage = (currentPage % totalPages) + 1;
+    showPage(currentPage);
+}
 
-// Panggil fungsi secara langsung untuk menampilkan gambar pertama
-changePPDBImages();
-
-
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    showPage(currentPage);
+    setInterval(nextPage, 4000);
+});
